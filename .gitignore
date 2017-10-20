@@ -3,3 +3,4 @@ node_modules/
 dist
 .c9/
 .env
+npm-debug.log

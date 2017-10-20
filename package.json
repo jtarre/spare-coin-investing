@@ -22,7 +22,8 @@
     ]
   },
   "scripts": {
-    "start": "webpack-dev-server --open"
+    "start": "webpack-dev-server --open",
+    "c9": "NODE_ENV=development webpack-dev-server --host $IP --port $PORT --config webpack.config.js --progress --disable-host-check --hot"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
