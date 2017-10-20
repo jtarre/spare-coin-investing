@@ -5,6 +5,7 @@ var ReactRouter = require('react-router-dom');
 var Router = ReactRouter.BrowserRouter;
 var Route = ReactRouter.Route;
 var Link = ReactRouter.Link;
+var Switch = ReactRouter.Switch;
 // var api = require('../utils/api');
 // var coinbase = ('../utils/coinbase-api');
 
@@ -23,9 +24,11 @@ class App extends React.Component {
                         <li><Link to="/account">Account</Link></li>
                     </ul>
                     
-                    <Route exact path="/dashboard" component={Dashboard}/>
-                    <Route path="/purchase" component={Purchase}/>
-                    <Route path="/account" component={Account}/>
+                    <Switch>
+                        <Route exact path="/dashboard" component={Dashboard}/>
+                        <Route path="/purchase" component={Purchase}/>
+                        <Route path="/account" component={Account}/>
+                    </Switch>
                 </div>
             </Router>
         )
