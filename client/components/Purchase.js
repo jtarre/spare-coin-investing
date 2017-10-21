@@ -23,6 +23,8 @@ class Purchase extends React.Component {
         function onSuccess(public_token, metadata) {
             console.log('public_token...', public_token);
             console.log('metadata...\n', metadata);
+            get_access_token();
+
             // $.post('/get_access_token', {
             //   public_token: public_token
             // }, function() {
@@ -31,20 +33,24 @@ class Purchase extends React.Component {
             //     $('#app, #steps').fadeIn('slow');
             //   });
             // });
+            function get_access_token() {
+                var body = { public_token: public_token };
+                return axios.post('http://spare-coin-investing-jtarre.c9users.io:8081/get_access_token', body)
+                .then(response_get_access_token)
+                .catch(error_get_access_token)
+                
+                function response_get_access_token(response) {
+                    console.log(response);
+                    console.log('You are connected!')
+                } 
+                
+                function error_get_access_token(error) {
+                    console.error(error);
+                    console.log("Something went wrong, please try again.");
+                } 
+                
+            }
         }
-    }
-    
-    onSuccess(public_token, metadata) {
-        console.log('public_token...', public_token);
-        console.log('metadata...\n', metadata);
-        // $.post('/get_access_token', {
-        //   public_token: public_token
-        // }, function() {
-        //   $('#container').fadeOut('fast', function() {
-        //     $('#intro').hide();
-        //     $('#app, #steps').fadeIn('slow');
-        //   });
-        // });
     }
     
     render() {
@@ -57,6 +63,7 @@ class Purchase extends React.Component {
                     </button>
                 <h1>Plaid</h1>
                 <button onClick={this.handler}>Link Accounts</button>
+                <button>Plaid status</button>
             </div>
         )
     }
