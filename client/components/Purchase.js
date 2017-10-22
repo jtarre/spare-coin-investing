@@ -4,6 +4,7 @@ var coinbase = require('../../utils/coinbase');
 var plaid_handler = require('../helpers/plaid_handler');
 var set_recurring_purchase = require('../helpers/set_recurring_purchase');
 var buy_crypto = require('../helpers/buy_crypto');
+
 function Coinbase(props) {
     return (
         <div>
