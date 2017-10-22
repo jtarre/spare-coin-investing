@@ -51,7 +51,7 @@ app.get('/', function(request, response, next) {
   // });
 });
 
-app.post('/get_access_token', function(request, response, next) {
+app.post('/save_access_token', function(request, response, next) {
   console.log(request); // may not be in the "body" from axios
   PUBLIC_TOKEN = request.body.public_token;
   client.exchangePublicToken(PUBLIC_TOKEN, function(error, tokenResponse) {
@@ -62,6 +62,11 @@ app.post('/get_access_token', function(request, response, next) {
         error: msg
       });
     }
+
+    // TODO: save Access token, item id
+    // don't need to store the bank name because the item id will return that
+    // i could be wrong though...
+
     ACCESS_TOKEN = tokenResponse.access_token;
     ITEM_ID = tokenResponse.item_id;
     console.log('Access Token: ' + ACCESS_TOKEN);
@@ -70,6 +75,24 @@ app.post('/get_access_token', function(request, response, next) {
       'error': false
     });
   });
+});
+
+app.get('/get_access_token', function(req, res) {
+    res.json({
+        access_token: ACCESS_TOKEN
+    });
+});
+
+app.post('/set_recurring_purchase', function(req, res) {
+  // TODO: set this fucker up
+
+  // this is a save to firebase. 
+  // this isn't actually a purchase on coinbase or a plaid call. 
+
+  // i don't actually know how this will look
+  // do i run a cron job that runs every day and checks for jobs that should run
+  // do i set up a background job to go off at a specific time for each purchase?
+
 });
 
 console.log('Hello!');
