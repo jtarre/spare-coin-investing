@@ -58,9 +58,49 @@ function get_access_token() {
     }
 }
 
+function get_transactions() {
+    var base_url = process.env.APP_ENV == "local" ? "http://localhost:8081/" : "http://spare-coin-investing-jtarre.c9users.io:8081/";
+    
+    return axios.post(base_url + 'transactions')
+    .then(response)
+    .catch(error)
+
+    function response(response) {
+        console.log(response);
+        console.log('loose change calculated!')
+    } 
+
+    function error(error) {
+        console.error(error);
+        console.log("Something went wrong, please try again.");
+    }
+}
+
+function get_loose_change() {
+    var base_url = process.env.APP_ENV == "local" ? "http://localhost:8081/" : "http://spare-coin-investing-jtarre.c9users.io:8081/";
+    
+    return axios.post(base_url + 'loose_change')
+    .then(response)
+    .catch(error)
+
+    function response(response) {
+        console.log(response);
+        console.log('loose change calculated!')
+    } 
+
+    function error(error) {
+        console.error(error);
+        console.log("Something went wrong, please try again.");
+    }
+}
+
+
+
 var plaid_handler = {
     plaid_link: plaid_link,
-    get_access_token: get_access_token
+    get_access_token: get_access_token,
+    get_transactions: get_transactions,
+    get_loose_change: get_loose_change
 }
 
 module.exports = plaid_handler;

@@ -1,3 +1,20 @@
+/*
+ *
+ * Ok, design
+ * san serif font
+ * mvp
+ * no database
+ * walk through form
+ * like typescript
+ * step 1. authorize bank account
+ * step 2. authorize coinbase
+ * step 3. get value of loose change
+ * step 3a. print value of loose change
+ * 3a1. congrats, you have some loose change! 
+ * 4. make purchase
+ * 4a. Buy {loose_change} worth of bitcoin!
+ */
+
 var express = require('express');
 var moment = require('moment');
 var bodyParser = require('body-parser');
@@ -95,7 +112,82 @@ app.post('/set_recurring_purchase', function(req, res) {
 
 });
 
+app.post('/transactions', function(request, response, next) {
+  // Pull transactions for the Item for the last 30 days
+  var startDate = moment().subtract(30, 'days').format('YYYY-MM-DD');
+  var endDate = moment().format('YYYY-MM-DD');
+  client.getTransactions(ACCESS_TOKEN, startDate, endDate, {
+    count: 250,
+    offset: 0,
+  }, function(error, transactionsResponse) {
+    if (error != null) {
+      console.log(JSON.stringify(error));
+      return response.json({
+        error: error
+      });
+    }
+    console.log('pulled ' + transactionsResponse.transactions.length + ' transactions');
+    response.json(transactionsResponse);
+  });
+});
+
+app.post('/loose_change', function(request, response, next) {
+    var get_change = get_loose_change.bind(this, response);
+    console.log('get change binding...\n', get_change);
+    var change = get_change();
+
+    function get_loose_change(response) {
+        // Pull transactions for the Item for the last 30 days
+        var startDate = moment().subtract(30, 'days').format('YYYY-MM-DD');
+        var endDate = moment().format('YYYY-MM-DD');
+        client.getTransactions(ACCESS_TOKEN, startDate, endDate, {
+            count: 250,
+            offset: 0,
+        }, transactionResponse);
+
+        function transactionResponse (error, transactionsResponse) {
+            if (error != null) {
+                console.log(JSON.stringify(error));
+                return error;
+                // return response.json({
+                //     error: error
+                // });
+            }
+            var transactions = transactionsResponse && transactionsResponse
+                && transactionsResponse.transactions 
+                ? transactionsResponse.transactions : [];
+
+            var change = transactions.length > 0 ? get_change(transactions) : 0;
+            console.log('change...', change);
+            response.json({ change: change });
+        }
+
+        function get_change(transactions) {
+            var change = transactions
+                .map(get_transaction_value)
+                .map(get_transaction_change)
+                .reduce(sum, 0);
+            return change;
+
+            function get_transaction_value(transaction) {
+                return transaction.amount;
+            }
+
+            function get_transaction_change(transaction_amount) {
+                var cents = transaction_amount - Math.floor(transaction_amount);
+                if(cents != 0) return 1 - cents;
+                else return 0;
+            }
+
+            function sum(transaction_amount, sum) {
+                return sum += transaction_amount;
+            }
+        }
+    }
+});
+
 console.log('Hello!');
+console.log(moment());
 var server = app.listen(APP_PORT, function() {
   console.log('plaid-walkthrough server listening on port ' + APP_PORT);
 });
