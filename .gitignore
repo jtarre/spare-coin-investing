@@ -3,6 +3,5 @@ node_modules/
 dist
 .c9/
 .env
-.env.server
 .env.*
 npm-debug.log
