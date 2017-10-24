@@ -79,12 +79,15 @@ function get_transactions() {
 function get_loose_change() {
     var base_url = process.env.APP_ENV == "local" ? "http://localhost:8081/" : "http://spare-coin-investing-jtarre.c9users.io:8081/";
     
+    var res = response.bind(this);
+
     return axios.post(base_url + 'loose_change')
-    .then(response)
+    .then(res)
     .catch(error)
 
     function response(response) {
         console.log(response);
+        this.setState({loose_change: response.data.change});
         console.log('loose change calculated!')
     } 
 

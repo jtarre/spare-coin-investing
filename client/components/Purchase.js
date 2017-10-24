@@ -47,22 +47,36 @@ function Buy(props) {
     // todo: need to define buy_crypto
     return (
         <div>
-            <button onClick={buy_crypto}></button>
+            <button onClick={buy_crypto}>Buy Bitcoin</button>
         </div>
     );
 }
 
-function LooseChange(props) {
+class LooseChange extends React.Component {
     // todo: need to pass the loose change value from here up to the parent
     // todo: need to save the loose change value on the parent
-    return (
-        <div>
-            <p>From the last 30 days...</p>
-            <button onClick={plaid_handler.get_loose_change}>
-                Print transactions
-            </button>   
-        </div>
-    );
+    constructor(props) {
+        super(props);
+        this.get_loose_change = this.get_loose_change.bind(this); // do I have to bind?
+    }
+    
+    get_loose_change() {
+        this.props.get_loose_change();    
+    }
+    
+    render() {
+        var loose_change = this.props.loose_change;
+        return (
+            <div>
+                <p>From the last 30 days...</p>
+                <button onClick={this.get_loose_change}>
+                    Get loose change
+                </button>
+                <h2>Loose Change: {loose_change}</h2>
+                
+            </div>
+        );
+    }
 }
 
 /*
@@ -81,7 +95,15 @@ function LooseChange(props) {
  * 4a. Buy {loose_change} worth of bitcoin!
  */
 class Purchase extends React.Component {
+    constructor(props) {
+        super(props);
+        console.log('constructor this...\n', this);
+        this.get_loose_change = plaid_handler.get_loose_change.bind(this);
+        this.state = { loose_change: "" };
+    }
+    
     render() {
+        var loose_change = this.state.loose_change;
         return (
             <div>
                 <h1>Step 1: Connect your Coinbase account</h1>
@@ -91,7 +113,10 @@ class Purchase extends React.Component {
                 <Plaid />
 
                 <h1>Step 3: Get the value of your loose change</h1>
-                <LooseChange />
+                <LooseChange
+                    loose_change={loose_change}
+                    get_loose_change={this.get_loose_change}
+                />
                 
                 <h1>Step 4: Buy Bitcoin!</h1>
                 <Buy />

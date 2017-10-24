@@ -15,6 +15,11 @@
  * 4a. Buy {loose_change} worth of bitcoin!
  */
 
+/*
+ * Possible start up errors:
+ * client fails - (move into its own method to unit test it?)
+ */
+
 var express = require('express');
 var moment = require('moment');
 var bodyParser = require('body-parser');
@@ -167,7 +172,8 @@ app.post('/loose_change', function(request, response, next) {
                 .map(get_transaction_value)
                 .map(get_transaction_change)
                 .reduce(sum, 0);
-            return change;
+            var changeRound = Math.round(change * 100) / 100; // keep to two decimals
+            return changeRound;
 
             function get_transaction_value(transaction) {
                 return transaction.amount;
