@@ -192,6 +192,13 @@ app.post('/loose_change', function(request, response, next) {
     }
 });
 
+app.get('/coinbase-callback', function(request, response) {
+  // GET https://example.com/oauth/callback?code=4c666b5c0c0d9d3140f2e0776cbe245f3143011d82b7a2c2a590cc7e20b79ae8&state=134ef5504a94
+  // todo: check that the url contains the code. 
+  var code = request.query.code;
+
+})
+
 console.log('Hello!');
 console.log(moment());
 var server = app.listen(APP_PORT, function() {
