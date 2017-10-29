@@ -1,5 +1,13 @@
+var plaid = require('plaid');
 
 var save_access_token = function save_access_token(app) {
+    
+    app.use(function(req, res, next) { 
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+        next();
+    });
+    
     // PUBLIC_TOKEN, client, ACCESS_TOKEN, and ITEM_ID 
     // can all be found in server/index.js (main server file)
     app.post('/save_access_token', function(request, response, next) {
@@ -8,8 +16,8 @@ var save_access_token = function save_access_token(app) {
         // i could be wrong though...
         
         console.log(request); // may not be in the "body" from axios
-        PUBLIC_TOKEN = request.body.public_token;
-        client.exchangePublicToken(PUBLIC_TOKEN, function(error, tokenResponse) {
+        PLAID_PUBLIC_TOKEN = request.body.public_token;
+        PLAID_CLIENT.exchangePublicToken(PLAID_PUBLIC_TOKEN, function(error, tokenResponse) {
             if (error != null) {
                 var msg = 'Could not exchange public_token!';
                 console.log(msg + '\n' + error);
@@ -18,10 +26,10 @@ var save_access_token = function save_access_token(app) {
                 });
             }
             
-            ACCESS_TOKEN = tokenResponse.access_token;
-            ITEM_ID = tokenResponse.item_id;
-            console.log('Access Token: ' + ACCESS_TOKEN);
-            console.log('Item ID: ' + ITEM_ID);
+            PLAID_ACCESS_TOKEN = tokenResponse.access_token;
+            PLAID_ITEM_ID = tokenResponse.item_id;
+            console.log('Access Token: ' + PLAID_ACCESS_TOKEN);
+            console.log('Item ID: ' + PLAID_ITEM_ID);
             response.json({
                 'error': false
             });

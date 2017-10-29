@@ -13,6 +13,7 @@ var Dashboard = require('./Dashboard');
 var Purchase = require('./Purchase');
 var Account = require('./Account');
 console.log('plaidapp...', Plaid);
+
 class App extends React.Component {
     render() {
         return (

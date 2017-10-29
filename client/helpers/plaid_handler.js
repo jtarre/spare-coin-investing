@@ -81,7 +81,7 @@ function get_loose_change() {
     
     var res = response.bind(this);
 
-    return axios.post(base_url + 'loose_change')
+    return axios.post(base_url + 'get_loose_change')
     .then(res)
     .catch(error)
 

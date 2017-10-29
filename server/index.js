@@ -20,6 +20,8 @@
  * client fails - (move into its own method to unit test it?)
  */
 
+// TODO: Send client to home page if route not found...
+
 var dotenv = require('dotenv').config({path: './.env.server'});
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -39,17 +41,18 @@ var PLAID_ENV = process.env.PLAID_ENV;
 
 // We store the access_token in memory - in production, store it in a secure
 // persistent data store
-var ACCESS_TOKEN = null;
-var PUBLIC_TOKEN = null;
-var ITEM_ID = null;
+PLAID_ACCESS_TOKEN = null;
+PLAID_PUBLIC_TOKEN = null;
+PLAID_ITEM_ID = null;
 
 // Initialize the Plaid client
-var client = new plaid.Client(
-  PLAID_CLIENT_ID,
-  PLAID_SECRET,
-  PLAID_PUBLIC_KEY,
-  plaid.environments[PLAID_ENV]
+PLAID_CLIENT = new plaid.Client(
+    process.env.PLAID_CLIENT_ID,
+    process.env.PLAID_SECRET,
+    process.env.PLAID_PUBLIC_KEY,
+    plaid.environments[process.env.PLAID_ENV]
 );
+
 
 /* Coinbase */
 var COINBASE_CODE = null;
@@ -64,7 +67,11 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
-app.use(function(req, res, next) {
+// allows cross origin requests 
+// on C9 dev environment, dev client is at port 8080, server is at port 8081.
+// because the server is a different origin than client
+// requires that cross origin requests are active
+app.use(function(req, res, next) { 
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
@@ -85,6 +92,7 @@ require('./plaid/get_transactions')(app);
 require('./plaid/get_loose_change')(app);
 
 require('./coinbase/auth_user_redirect')(app);
+require('./coinbase/buy')(app);
 require('./coinbase/get_access_token')(app);
 
 
