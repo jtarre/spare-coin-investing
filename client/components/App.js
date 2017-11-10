@@ -12,18 +12,20 @@ var Switch = ReactRouter.Switch;
 var Dashboard = require('./Dashboard');
 var Purchase = require('./Purchase');
 var Account = require('./Account');
-console.log('plaidapp...', Plaid);
+require('../index.css')
 
 class App extends React.Component {
     render() {
         return (
             <Router>
                 <div>
-                    <ul>
-                        <li><Link to="/dashboard">Dashboard</Link></li>
-                        <li><Link to="/purchase">Purchase</Link></li>
-                        <li><Link to="/account">Account</Link></li>
-                    </ul>
+                    <nav className="navbar">
+                        <ul className="nav navbar-nav">
+                            <li className="navbutton"><Link to="/dashboard">Dashboard</Link></li>
+                            <li className="navbutton"><Link to="/purchase">Purchase</Link></li>
+                            <li className="navbutton"><Link to="/account">Account</Link></li>
+                        </ul>
+                    </nav>
                     
                     <Switch>
                         <Route exact path="/dashboard" component={Dashboard}/>

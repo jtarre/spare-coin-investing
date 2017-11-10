@@ -11,9 +11,8 @@ var set_recurring_purchase = require('../helpers/set_recurring_purchase');
 function Coinbase(props) {
     return (
         <div>
-            <h2>Coinbase</h2>
             <button onClick={coinbase_authorize_user}>
-                Connect to Coinbase
+                Authorize Coinbase
             </button>
         </div>
         
@@ -23,10 +22,7 @@ function Coinbase(props) {
 function Plaid(props) {
     return (
         <div>
-            <h2>Plaid</h2>
-            <button onClick={plaid_handler.plaid_link}>Link Accounts</button>
-            <h2>Get Access Token</h2>
-            <button onClick={plaid_handler.get_access_token}>Print access token</button>
+            <button onClick={plaid_handler.plaid_link}>Authorize Bank Account</button>
         </div>
     );
 }
@@ -75,7 +71,7 @@ class LooseChange extends React.Component {
                 <button onClick={this.get_loose_change}>
                     Get loose change
                 </button>
-                <h2>Loose Change: {loose_change}</h2>
+                <h3>Loose Change: {loose_change}</h3>
                 
             </div>
         );
@@ -109,20 +105,43 @@ class Purchase extends React.Component {
         var loose_change = this.state.loose_change;
         return (
             <div>
-                <h1>Step 1: Connect your Coinbase account</h1>
-                <Coinbase />
-                
-                <h1>Step 2: Connect your bank account</h1>
-                <Plaid />
+                <section className="masthead">
+                    <div className="sectionNavWrapper">
+                        <div className="row">
+                            <nav>
+                                <ul className="sectionNav">
+                                    <li className="sectionNav-item">
+                                        <a className="sectionNav-link" href="#">
+                                            Connect Accounts
+                                        </a>
+                                    </li>
+                                    <li className="sectionNav-item">
+                                        <a className="sectionNav-link" href="#">
+                                            Buy Bitcoin
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </section>
+                <div>
+                    <h1>Authorize Coinbase</h1>
+                    <Coinbase />
+                    
+                    <h1>Authorize your bank account</h1>
+                    <Plaid />
 
-                <h1>Step 3: Get the value of your loose change</h1>
-                <LooseChange
-                    loose_change={loose_change}
-                    get_loose_change={this.get_loose_change}
-                />
-                
-                <h1>Step 4: Buy Bitcoin!</h1>
-                <Buy />
+                    <h1>Calculate your loose change</h1>
+                    <LooseChange
+                        loose_change={loose_change}
+                        get_loose_change={this.get_loose_change}
+                    />
+                    
+                    <h1>Buy Bitcoin with Coinbase</h1>
+                    <Buy />
+                </div>
+                    
             </div>
         )
     }

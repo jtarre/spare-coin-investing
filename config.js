@@ -4,10 +4,8 @@ var server_url = function server_url() {
     var server_url = "";
     if(process.env.NODE_ENV === "c9")
         server_url = "localhost:8080";
-    else if(process.env.NODE_ENV === "production")
-        server_url = process.env.SCI_SERVER_URL;
     else
-        server_url = "localhost:3000";   
+        server_url = process.env.SCI_SERVER_URL;
 
     console.log('server_url:', server_url);
     return server_url; 

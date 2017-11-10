@@ -6,6 +6,87 @@ body {
     max-width: 1200px;
     margin: 0 auto;
 }
+a {
+    text-decoration: none;
+}
+a:link {
+    text-decoration: none;
+}
+
+a:visited {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+a:active {
+    text-decoration: none;
+}
+
+h1, h2, p {
+    color: #142834;
+}
+
+.navbar {
+    background-color: #142834;
+    margin: 0;
+}
+
+
+
+.navbutton {
+    border-radius: 23px;
+}
+
+.masthead {
+    background-color: #f3f4f5;
+    padding-top: 46px;
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 15px;
+    display: block;
+}
+
+.sectionNavWrapper {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 15px;
+}
+
+.sectionNav {
+    line-height: 32px;
+    list-style-type: none;
+    font-size: 18px;
+    position: relative;
+    padding: 0;
+    margin: 0;
+}
+
+.sectionNav-item {
+    display: inline-block;
+    word-spacing: 0;
+    line-height: 26px;
+    margin: 10px 40px 20px 0px;
+}
+
+.sectionNav-link {
+    border-bottom: 2px solid transparent;
+    display: inline-block;
+    color: #4d575f;
+    text-decoration: none;
+
+}
+
+.sectionNav-link.is-selected {
+    color: #09a1d9;
+    border-bottom-color: #09a1d9;
+}
+
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
 
 ul {
     padding: 0;
