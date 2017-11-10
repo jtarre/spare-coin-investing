@@ -14,7 +14,7 @@ var server_url = function server_url() {
 }
 
 var config = {
-    server_url: server_url
+    server_url: server_url()
 }
 
 module.exports = config;

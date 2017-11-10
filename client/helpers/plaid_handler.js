@@ -1,5 +1,4 @@
 var config = require('../../config');
-console.log('plaid handler config...\n', config);
 var axios = require('axios');
 
 var plaid_link = function plaid_link() {
@@ -58,7 +57,7 @@ function get_access_token() {
 }
 
 function get_transactions() {
-    return axios.post(`${config.SERVER_URL}/transactions`)
+    return axios.post(`${config.server_url}/transactions`)
     .then(response)
     .catch(error)
 
@@ -76,7 +75,7 @@ function get_transactions() {
 function get_loose_change() {
     var res = response.bind(this);
 
-    return axios.post(`${config.SERVER_URL}/get_loose_change`)
+    return axios.post(`${config.server_url}/get_loose_change`)
     .then(res)
     .catch(error)
 
