@@ -1,7 +1,7 @@
 var axios = require('axios');
-
+var config = require('../../config');
 var buy = function buy() {
-    axios.get('https://spare-coin-investing-jtarre.c9users.io:8081/buy')
+    axios.get(`${config.SERVER_URL}/buy`)
     .then(handleResponse)
     .catch(handleError)
 }
