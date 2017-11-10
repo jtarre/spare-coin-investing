@@ -32,7 +32,7 @@
     "deploy": "npm run build && firebase deploy",
     "firebase-init": "firebase login && firebase init",
     "dev-server": "nodemon ./server/index.js",
-    "c9": "NODE_ENV=development webpack-dev-server --host $IP --port $PORT --config webpack.config.js --progress --disable-host-check --hot"
+    "c9": "NODE_ENV='c9' webpack-dev-server --host $IP --port $PORT --config webpack.config.js --progress --disable-host-check --hot"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
