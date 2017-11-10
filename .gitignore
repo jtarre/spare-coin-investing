@@ -7,3 +7,4 @@ dist
 .env.*
 npm-debug.log
 webpack.config.js
+package-lock.json

@@ -30,7 +30,7 @@
     "start": "webpack-dev-server --open",
     "build": "NODE_ENV='production' webpack -p",
     "deploy": "npm run build && firebase deploy",
-    "firebase-init": "firebase login && firebase-init",
+    "firebase-init": "firebase login && firebase init",
     "dev-server": "nodemon ./server/index.js",
     "c9": "NODE_ENV=development webpack-dev-server --host $IP --port $PORT --config webpack.config.js --progress --disable-host-check --hot"
   },

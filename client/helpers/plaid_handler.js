@@ -22,9 +22,8 @@ function onSuccess(public_token, metadata) {
 var save_access_token = function save_access_token(public_token) { 
     var body = { public_token: public_token };
     console.log('app env...', process.env.APP_ENV);
-    var base_url = process.env.APP_ENV == "local" ? "http://localhost:8081/" : "http://spare-coin-investing-jtarre.c9users.io:8081/";
     
-    return axios.post(base_url + 'save_access_token', body)
+    return axios.post(`${process.env.SERVER_URL}/save_access_token`, body)
     .then(response)
     .catch(error)
 
@@ -41,9 +40,7 @@ var save_access_token = function save_access_token(public_token) {
 
 // paired with the server method get_access_token
 function get_access_token() { 
-    var base_url = process.env.APP_ENV == "local" ? "http://localhost:8081/" : "http://spare-coin-investing-jtarre.c9users.io:8081/";
-    
-    return axios.get(base_url + 'get_access_token')
+    return axios.get(`${process.env.SERVER_URL}/get_access_token`)
     .then(response)
     .catch(error)
 
@@ -59,9 +56,7 @@ function get_access_token() {
 }
 
 function get_transactions() {
-    var base_url = process.env.APP_ENV == "local" ? "http://localhost:8081/" : "http://spare-coin-investing-jtarre.c9users.io:8081/";
-    
-    return axios.post(base_url + 'transactions')
+    return axios.post(`${process.env.SERVER_URL}/transactions`)
     .then(response)
     .catch(error)
 
@@ -77,11 +72,9 @@ function get_transactions() {
 }
 
 function get_loose_change() {
-    var base_url = process.env.APP_ENV == "local" ? "http://localhost:8081/" : "http://spare-coin-investing-jtarre.c9users.io:8081/";
-    
     var res = response.bind(this);
 
-    return axios.post(base_url + 'get_loose_change')
+    return axios.post(`${process.env.SERVER_URL}/get_loose_change`)
     .then(res)
     .catch(error)
 
