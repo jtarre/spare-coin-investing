@@ -21,6 +21,7 @@
  */
 
 // TODO: Send client to home page if route not found...
+// TODO: Send client to home page when hitting the / route
 
 var dotenv = require('dotenv').config({path: './.env.server'});
 var express = require('express');
@@ -76,6 +77,7 @@ app.use(function(req, res, next) {
   next();
 });
 
+// TODO: send the React app. 
 app.get('/', function(request, response, next) {
   console.log('Welcome home!');
   response.send('You made it');
