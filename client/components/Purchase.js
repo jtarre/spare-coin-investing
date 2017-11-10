@@ -1,15 +1,18 @@
 var React = require('react');
 var axios = require('axios');
-var coinbase = require('../../utils/coinbase');
+
 var plaid_handler = require('../helpers/plaid_handler');
+
+var coinbase_authorize_user = require('../coinbase/authorize_user');
+var buy = require('../coinbase/buy');
+
 var set_recurring_purchase = require('../helpers/set_recurring_purchase');
-var buy_crypto = require('../helpers/buy_crypto');
 
 function Coinbase(props) {
     return (
         <div>
             <h2>Coinbase</h2>
-            <button onClick={coinbase.authorize_user}>
+            <button onClick={coinbase_authorize_user}>
                 Connect to Coinbase
             </button>
         </div>
@@ -44,10 +47,10 @@ function RecurringPurchase(props) {
 
 function Buy(props) {
     // todo: need to pass in loose change as a prop to the buy button
-    // todo: need to define buy_crypto
+    // todo: need to define buy
     return (
         <div>
-            <button onClick={buy_crypto}>Buy Bitcoin</button>
+            <button onClick={buy}>Buy Bitcoin</button>
         </div>
     );
 }

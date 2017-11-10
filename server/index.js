@@ -53,11 +53,10 @@ PLAID_CLIENT = new plaid.Client(
     plaid.environments[process.env.PLAID_ENV]
 );
 
-
-/* Coinbase */
-var COINBASE_CODE = null;
-var COINBASE_ACCESS_TOKEN = null;
-var COINBASE_REFRESH_TOKEN = null;
+// Coinbase fields needed to create oauth2 client
+COINBASE_CODE = null;
+COINBASE_ACCESS_TOKEN = null;
+COINBASE_REFRESH_TOKEN = null;
 
 var app = express();
 // app.use(express.static('public'));
@@ -91,10 +90,9 @@ require('./plaid/get_access_token')(app);
 require('./plaid/get_transactions')(app);
 require('./plaid/get_loose_change')(app);
 
-require('./coinbase/auth_user_redirect')(app);
+require('./coinbase/auth_redirect')(app);
+require('./coinbase/access_token_redirect')(app);
 require('./coinbase/buy')(app);
-require('./coinbase/get_access_token')(app);
-
 
 console.log('Hello!');
 console.log(moment());
