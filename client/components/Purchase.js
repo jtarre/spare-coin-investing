@@ -1,12 +1,16 @@
-var React = require('react');
 var axios = require('axios');
 
+var React = require('react');
+var ReactRouter = require('react-router-dom');
+var Router = ReactRouter.BrowserRouter;
+var Route = ReactRouter.Route;
+var Link = ReactRouter.Link;
+var Switch = ReactRouter.Switch;
+
 var plaid_handler = require('../helpers/plaid_handler');
-
 var coinbase_authorize_user = require('../coinbase/authorize_user');
-var buy = require('../coinbase/buy');
 
-var set_recurring_purchase = require('../helpers/set_recurring_purchase');
+var buy = require('../coinbase/buy');
 
 function Coinbase(props) {
     return (
@@ -23,30 +27,6 @@ function Plaid(props) {
     return (
         <div>
             <button onClick={plaid_handler.plaid_link}>Authorize Bank Account</button>
-        </div>
-    );
-}
-
-function RecurringPurchase(props) {
-    return (
-        <div>
-            
-            Frequency
-            <select>
-                <option val="week">Weekly</option>
-                <option val="monthly">Monthly</option>
-            </select>
-            <button onClick={set_recurring_purchase}>Set up purchase</button>
-        </div>
-    );
-}
-
-function Buy(props) {
-    // todo: need to pass in loose change as a prop to the buy button
-    // todo: need to define buy
-    return (
-        <div>
-            <button onClick={buy}>Buy Bitcoin</button>
         </div>
     );
 }
@@ -78,6 +58,56 @@ class LooseChange extends React.Component {
     }
 }
 
+function Buy(props) {
+    // todo: need to pass in loose change as a prop to the buy button
+    // todo: need to define buy
+    return (
+        <div>
+            <button onClick={buy}>Buy Bitcoin</button>
+        </div>
+    );
+}
+
+class Authorize extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    render() {
+        return (
+            <div>
+                <h1>Authorize Coinbase</h1>
+                <Coinbase />
+                
+                <h1>Authorize your bank account</h1>
+                <Plaid />
+            </div>
+        )
+    }
+}
+
+class BuyBitcoin extends React.Component {
+    constructor(props) {
+        super(props);
+        this.get_loose_change = plaid_handler.get_loose_change.bind(this);
+        this.state = { loose_change: "" };
+    }
+    render() {
+        var loose_change = this.state.loose_change;
+        return (
+            <div>
+                <h1>Calculate your loose change</h1>
+                <LooseChange
+                    loose_change={loose_change}
+                    get_loose_change={this.get_loose_change}
+                />
+                
+                <h1>Buy Bitcoin with Coinbase</h1>
+                <Buy />
+            </div>
+        )
+    }
+}
+
 /*
  * Ok, design
  * san serif font
@@ -96,6 +126,7 @@ class LooseChange extends React.Component {
 class Purchase extends React.Component {
     constructor(props) {
         super(props);
+        console.log("what's in Purchase's props?\n", props);
         console.log('constructor this...\n', this);
         this.get_loose_change = plaid_handler.get_loose_change.bind(this);
         this.state = { loose_change: "" };
@@ -111,36 +142,18 @@ class Purchase extends React.Component {
                             <nav>
                                 <ul className="sectionNav">
                                     <li className="sectionNav-item">
-                                        <a className="sectionNav-link" href="#">
-                                            Connect Accounts
-                                        </a>
+                                        <Link className="sectionNav-link" to="/purchase/authorize">Connect</Link>
                                     </li>
                                     <li className="sectionNav-item">
-                                        <a className="sectionNav-link" href="#">
-                                            Buy Bitcoin
-                                        </a>
+                                        <Link className="sectionNav-link" to="/purchase/buy-bitcoin">Buy Bitcoin</Link>
                                     </li>
                                 </ul>
                             </nav>
                         </div>
                     </div>
                 </section>
-                <div>
-                    <h1>Authorize Coinbase</h1>
-                    <Coinbase />
-                    
-                    <h1>Authorize your bank account</h1>
-                    <Plaid />
-
-                    <h1>Calculate your loose change</h1>
-                    <LooseChange
-                        loose_change={loose_change}
-                        get_loose_change={this.get_loose_change}
-                    />
-                    
-                    <h1>Buy Bitcoin with Coinbase</h1>
-                    <Buy />
-                </div>
+                <Route path="/purchase/authorize" component={Authorize} />
+                <Route path="/purchase/buy-bitcoin" component={BuyBitcoin} />
                     
             </div>
         )
@@ -148,3 +161,64 @@ class Purchase extends React.Component {
 }
 
 module.exports = Purchase;
+
+// Simple model
+
+// Class P extends React.Component {
+//     render() {
+//         return (
+//             <N />
+//             <Route path="{current}/a" component={AV}/>
+//             <Route path="{current}/b" component={BV}/>
+//         )
+//     }
+// }
+
+// Class N extends React.Component {
+//     render() {
+//         return (
+//             <nav>
+//                 <A />
+//                 <B />
+//             </nav>
+//         )
+//     }
+// }
+
+// class A extends React.Component {
+//     render() {
+//         return (
+//             <div>
+//                 <h2>A</h2>
+//             </div>
+//         )
+//     }
+// }
+
+// class B extends React.Component {
+//     render() {
+//         return (
+//             <div>
+//                 <h2>B</h2>
+//             </div>
+//         )
+//     }
+// }
+
+// class AV extends React.Component {
+//     render() {
+//         return (
+//             <button>Click</button>
+//         )
+//     }
+// }
+
+// class BV extends React.Component {
+//     render() {
+//         return (
+//             <button>Clack</button>
+//         )
+//     }
+// }
+
+
