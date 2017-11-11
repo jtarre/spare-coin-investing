@@ -39,6 +39,7 @@ h1, h2, p {
 
 .navbutton {
     border-radius: 23px;
+    background-color: white;
 }
 
 .masthead {
@@ -82,6 +83,12 @@ h1, h2, p {
 .sectionNav-link.is-selected {
     color: #09a1d9;
     border-bottom-color: #09a1d9;
+}
+
+.sectionWrapper {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 15px;
 }
 
 .row {
