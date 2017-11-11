@@ -21,14 +21,12 @@ class App extends React.Component {
                 <div>
                     <nav className="navbar">
                         <ul className="nav navbar-nav">
-                            <li className="navbutton"><Link to="/dashboard">Dashboard</Link></li>
                             <li className="navbutton"><Link to="/purchase">Purchase</Link></li>
                             <li className="navbutton"><Link to="/account">Account</Link></li>
                         </ul>
                     </nav>
                     
                     <Switch>
-                        <Route exact path="/dashboard" component={Dashboard}/>
                         <Route path="/purchase" component={Purchase}/>
                         <Route path="/account" component={Account}/>
                     </Switch>
