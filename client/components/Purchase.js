@@ -14,12 +14,9 @@ class Purchase extends React.Component {
     constructor(match) { // match is a React Router term
         super(match);
         console.log("what's in Purchase's match?\n", match);
-        console.log('constructor this...\n', this);
-        this.state = { loose_change: "" };
     }
     
     render() {
-        var loose_change = this.state.loose_change;
         return (
             <div>
                 <section className="masthead">
@@ -28,8 +25,19 @@ class Purchase extends React.Component {
                             <nav>
                                 <ul className="sectionNav">
                                     <li className="sectionNav-item">
-                                        <Link className="sectionNav-link" to="/purchase/authorize">Connect</Link>
+                                        <Link className="sectionNav-link" to="/purchase/authorize">Authorize Accounts</Link>
                                     </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </section>
+                <Route path="/purchase/authorize" component={Authorize} />
+                <section className="masthead">
+                    <div className="sectionNavWrapper">
+                        <div className="row">
+                            <nav>
+                                <ul className="sectionNav">
                                     <li className="sectionNav-item">
                                         <Link className="sectionNav-link" to="/purchase/buy-bitcoin">Buy Bitcoin</Link>
                                     </li>
@@ -38,7 +46,6 @@ class Purchase extends React.Component {
                         </div>
                     </div>
                 </section>
-                <Route path="/purchase/authorize" component={Authorize} />
                 <Route path="/purchase/buy-bitcoin" component={BuyBitcoin} />
             </div>
         )

@@ -32,22 +32,42 @@ h1, h2, p {
 
 .navbar {
     background-color: #142834;
+    opacity: .8;
     margin: 0;
+    padding-bottom: 10px;
+    padding-top: 10px;
 }
-
 
 
 .navbutton {
     border-radius: 23px;
-    background-color: white;
+    margin-right: 10px;
+    font-size: 18px;
+}
+
+.navLink {
+    border-radius: 23px;
+    color: white;
+}
+
+.navLink:hover {
+    border-radius: 23px;
+    background-color: black !important;
+    color: white;
 }
 
 .masthead {
     background-color: #f3f4f5;
     padding-top: 46px;
     border-bottom: 1px solid #e5e5e5;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     display: block;
+}
+
+.sectionWrapper {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px 15px;
 }
 
 .sectionNavWrapper {
@@ -83,12 +103,6 @@ h1, h2, p {
 .sectionNav-link.is-selected {
     color: #09a1d9;
     border-bottom-color: #09a1d9;
-}
-
-.sectionWrapper {
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0 15px;
 }
 
 .row {

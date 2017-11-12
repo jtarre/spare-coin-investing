@@ -5,7 +5,7 @@ var coinbase_authorize_user = require('../coinbase/authorize_user');
 function Coinbase(props) {
     return (
         <div>
-            <button onClick={coinbase_authorize_user}>
+            <button className="btn btn-default" onClick={coinbase_authorize_user}>
                 Authorize Coinbase
             </button>
         </div>
@@ -16,7 +16,7 @@ function Coinbase(props) {
 function Plaid(props) {
     return (
         <div>
-            <button onClick={plaid_handler.plaid_link}>
+            <button className="btn btn-default" onClick={plaid_handler.plaid_link}>
                 Authorize Bank Account
             </button>
         </div>

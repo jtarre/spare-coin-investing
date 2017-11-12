@@ -7,7 +7,7 @@ function Buy(props) {
     // todo: need to define buy
     return (
         <div>
-            <button onClick={buy}>Buy Bitcoin</button>
+            <button className="btn btn-default" onClick={buy}>Buy Bitcoin</button>
         </div>
     );
 }
@@ -17,7 +17,7 @@ class LooseChange extends React.Component {
     // todo: need to save the loose change value on the parent
     constructor(props) {
         super(props);
-        this.get_loose_change = this.get_loose_change.bind(this); // do I have to bind?
+        this.get_loose_change = this.get_loose_change.bind(this);
     }
     
     get_loose_change() {
@@ -29,10 +29,10 @@ class LooseChange extends React.Component {
         return (
             <div>
                 <p>From the last 30 days...</p>
-                <button onClick={this.get_loose_change}>
+                <button className="btn btn-default" onClick={this.get_loose_change}>
                     Get loose change
                 </button>
-                <h3>Loose Change: {loose_change}</h3>
+                <h3>Loose Change: </h3><input type="number" value={loose_change} />
                 
             </div>
         );
