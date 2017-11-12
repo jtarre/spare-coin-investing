@@ -24,7 +24,7 @@ var save_access_token = function save_access_token(public_token) {
     var body = { public_token: public_token };
     console.log('app env...', process.env.APP_ENV);
     
-    return axios.post(`${config.SERVER_URL}/save_access_token`, body)
+    return axios.post(`${config.server_url}/save_access_token`, body)
     .then(response)
     .catch(error)
 
@@ -41,7 +41,7 @@ var save_access_token = function save_access_token(public_token) {
 
 // paired with the server method get_access_token
 function get_access_token() { 
-    return axios.get(`${config.SERVER_URL}/get_access_token`)
+    return axios.get(`${config.server_url}/get_access_token`)
     .then(response)
     .catch(error)
 
@@ -57,7 +57,7 @@ function get_access_token() {
 }
 
 function get_transactions() {
-    return axios.post(`${config.SERVER_URL}/transactions`)
+    return axios.post(`${config.server_url}/transactions`)
     .then(response)
     .catch(error)
 
@@ -75,7 +75,7 @@ function get_transactions() {
 function get_loose_change() {
     var res = response.bind(this);
 
-    return axios.post(`${config.SERVER_URL}/get_loose_change`)
+    return axios.post(`${config.server_url}/get_loose_change`)
     .then(res)
     .catch(error)
 

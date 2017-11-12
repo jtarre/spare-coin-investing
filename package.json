@@ -10,6 +10,7 @@
   "author": "Jason Tarre",
   "dependencies": {
     "axios": "^0.16.2",
+    "babel-polyfill": "^6.26.0",
     "body-parser": "^1.18.2",
     "coinbase": "^2.0.6",
     "dotenv-webpack": "^1.5.4",
@@ -23,11 +24,13 @@
   "babel": {
     "presets": [
       "env",
-      "react"
+      "react",
+      "stage-2"
     ]
   },
   "scripts": {
     "start": "webpack-dev-server --open",
+    "local": "NODE_ENV='local' webpack-dev-server --open",
     "build": "NODE_ENV='production' webpack -p",
     "deploy": "npm run build && firebase deploy",
     "firebase-init": "firebase login && firebase init",
@@ -39,6 +42,7 @@
     "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
     "css-loader": "^0.28.7",
     "firebase-tools": "^3.14.0",
     "html-webpack-plugin": "^2.30.1",

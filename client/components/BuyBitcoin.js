@@ -1,17 +1,14 @@
-var React = require('react');
-var plaid_handler = require('../helpers/plaid_handler');
-var buy = require('../coinbase/buy');
+const React = require('react');
+const plaid_handler = require('../helpers/plaid_handler');
+const buy = require('../coinbase/buy');
 
-function Buy(props) {
+const Buy = (props) => (
     // todo: need to pass in loose change as a prop to the buy button
     // todo: need to define buy
-    return (
-        <div>
-            <button className="btn btn-default" onClick={buy}>Buy Bitcoin</button>
-        </div>
-    );
-}
-
+    <div>
+        <button className="btn btn-default" onClick={buy}>Buy Bitcoin</button>
+    </div>
+)
 class LooseChange extends React.Component {
     // todo: need to pass the loose change value from here up to the parent
     // todo: need to save the loose change value on the parent
@@ -23,16 +20,27 @@ class LooseChange extends React.Component {
     get_loose_change() {
         this.props.get_loose_change();    
     }
+
+    // onChange(e) {
+    //     this.props.onChange(e.target.value);
+    // }
     
     render() {
-        var loose_change = this.props.loose_change;
+        const loose_change = this.props.loose_change;
         return (
             <div>
                 <p>From the last 30 days...</p>
-                <button className="btn btn-default" onClick={this.get_loose_change}>
+                <button 
+                    className="btn btn-default" 
+                    onClick={this.get_loose_change}>
                     Get loose change
                 </button>
-                <h3>Loose Change: </h3><input type="number" value={loose_change} />
+                <h3>Loose Change:</h3>
+                <input 
+                    type="number" 
+                    value={loose_change} 
+                    // todo: onChange=""
+                />
                 
             </div>
         );
@@ -46,7 +54,7 @@ class BuyBitcoin extends React.Component {
         this.state = { loose_change: "" };
     }
     render() {
-        var loose_change = this.state.loose_change;
+        const loose_change = this.state.loose_change;
         return (
             <div className="sectionWrapper">
                 <h1>Calculate your loose change</h1>

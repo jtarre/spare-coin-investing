@@ -30,11 +30,16 @@ var save_access_token = function save_access_token(public_token) {
 
     function response(response) {
         console.log(response);
+        // todo: save token and account id to state.
+        var bank_access_token = response.data.bank_access_token;
+        var bank_account_id = response.data.bank_account_id;
         console.log('You are connected!')
     } 
 
     function error(error) {
         console.error(error);
+        // todo: response messages 
+        // todo: error conditions on app
         console.log("Something went wrong, please try again.");
     }
 }

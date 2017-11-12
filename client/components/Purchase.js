@@ -1,55 +1,58 @@
-var axios = require('axios');
+const React = require('react');
+import { BrowserRouter as Router, 
+        Route,
+        Link,
+        Switch} from 'react-router-dom';
+const BuyBitcoin = require('./BuyBitcoin');
+const Authorize = require('./Authorize');
+const axios = require('axios');
 
-var React = require('react');
-var ReactRouter = require('react-router-dom');
-var Router = ReactRouter.BrowserRouter;
-var Route = ReactRouter.Route;
-var Link = ReactRouter.Link;
-var Switch = ReactRouter.Switch;
+// excellent explanation of passing props to routes in the react-router library
+// https://github.com/ReactTraining/react-router/issues/4105
 
-var BuyBitcoin = require('./BuyBitcoin');
-var Authorize = require('./Authorize');
-
-class Purchase extends React.Component {
-    constructor(match) { // match is a React Router term
-        super(match);
-        console.log("what's in Purchase's match?\n", match);
-    }
-    
-    render() {
-        return (
-            <div>
-                <section className="masthead">
-                    <div className="sectionNavWrapper">
-                        <div className="row">
-                            <nav>
-                                <ul className="sectionNav">
-                                    <li className="sectionNav-item">
-                                        <Link className="sectionNav-link" to="/purchase/authorize">Authorize Accounts</Link>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </section>
-                <Route path="/purchase/authorize" component={Authorize} />
-                <section className="masthead">
-                    <div className="sectionNavWrapper">
-                        <div className="row">
-                            <nav>
-                                <ul className="sectionNav">
-                                    <li className="sectionNav-item">
-                                        <Link className="sectionNav-link" to="/purchase/buy-bitcoin">Buy Bitcoin</Link>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </section>
-                <Route path="/purchase/buy-bitcoin" component={BuyBitcoin} />
+const SectionNav = ({header, link}) => (
+    <section className="masthead">
+        <div className="sectionNavWrapper">
+            <div className="row">
+                <nav>
+                    <ul className="sectionNav">
+                        <li className="sectionNav-item">
+                            <Link className="sectionNav-link" to={`${link}`}>{header}</Link>
+                        </li>
+                    </ul>
+                </nav>
             </div>
-        )
-    }
-}
+        </div>
+    </section>
+)
+
+const Purchase = ({ bank_access_token, bank_account_id, 
+    bitcoin_access_token, 
+    handleBankAccessTokenChange,
+    handleBankAccountIdChange }) => (    
+    <div>
+        <SectionNav header="Authorize Accounts" link="/purchase/authorize"/>
+        <Route path="/purchase/authorize" render={
+            () => ( 
+                <Authorize 
+                    bank_access_token={bank_access_token}
+                    bank_account_id={bank_account_id}
+                    bitcoin_access_token={bitcoin_access_token}
+                    handleBankAccessTokenChange={handleBankAccessTokenChange}
+                    handleBankAccountIdChange={handleBankAccountIdChange}
+                /> )}
+        />
+        <SectionNav header="Buy Bitcoin" link="/purchase/buy-bitcoin" />
+        <Route path="/purchase/buy-bitcoin" render={ () => (
+            <BuyBitcoin 
+                bank_access_token={bank_access_token}
+                bank_account_id={bank_account_id}
+                bitcoin_access_token={bitcoin_access_token}
+                handleBankAccessTokenChange={handleBankAccessTokenChange}
+                handleBankAccountIdChange={handleBankAccountIdChange}
+            />
+        )}/>
+    </div>
+)
 
 module.exports = Purchase;

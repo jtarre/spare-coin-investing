@@ -1,4 +1,4 @@
-var React = require('react');
+const React = require('react');
 
 class Dashboard extends React.Component {
     render() {

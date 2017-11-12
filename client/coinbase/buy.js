@@ -1,7 +1,7 @@
 var axios = require('axios');
 var config = require('../../config');
 var buy = function buy() {
-    axios.get(`${config.SERVER_URL}/buy`)
+    axios.get(`${config.server_url}/buy`)
     .then(handleResponse)
     .catch(handleError)
 }
