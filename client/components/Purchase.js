@@ -27,9 +27,7 @@ const SectionNav = ({header, link}) => (
 )
 
 const Purchase = ({ bank_access_token, bank_account_id, 
-    bitcoin_access_token, 
-    handleBankAccessTokenChange,
-    handleBankAccountIdChange }) => (    
+    bitcoin_access_token, plaid_link}) => (    
     <div>
         <SectionNav header="Authorize Accounts" link="/purchase/authorize"/>
         <Route path="/purchase/authorize" render={
@@ -37,9 +35,7 @@ const Purchase = ({ bank_access_token, bank_account_id,
                 <Authorize 
                     bank_access_token={bank_access_token}
                     bank_account_id={bank_account_id}
-                    bitcoin_access_token={bitcoin_access_token}
-                    handleBankAccessTokenChange={handleBankAccessTokenChange}
-                    handleBankAccountIdChange={handleBankAccountIdChange}
+                    plaid_link={plaid_link}
                 /> )}
         />
         <SectionNav header="Buy Bitcoin" link="/purchase/buy-bitcoin" />
@@ -48,8 +44,7 @@ const Purchase = ({ bank_access_token, bank_account_id,
                 bank_access_token={bank_access_token}
                 bank_account_id={bank_account_id}
                 bitcoin_access_token={bitcoin_access_token}
-                handleBankAccessTokenChange={handleBankAccessTokenChange}
-                handleBankAccountIdChange={handleBankAccountIdChange}
+                plaid_link={plaid_link}
             />
         )}/>
     </div>

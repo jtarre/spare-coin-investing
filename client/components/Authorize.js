@@ -10,21 +10,21 @@ const Coinbase = (props) => (
     </div>
 )
 
-const Plaid = (props) => (
+const Plaid = ({plaid_link}) => (
     <div>
-        <button className="btn btn-default" onClick={plaid_handler.plaid_link}>
+        <button className="btn btn-default" onClick={plaid_link}>
             Authorize Bank Account
         </button>
     </div>
 )
 
-const Authorize = (props) => (
+const Authorize = ({plaid_link}) => (
     <div className="sectionWrapper">
         <h1>Authorize Coinbase</h1>
         <Coinbase />
         
         <h1>Authorize your bank account</h1>
-        <Plaid />
+        <Plaid plaid_link={plaid_link}/>
     </div>
 )
 
