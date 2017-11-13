@@ -1,17 +1,12 @@
 var axios = require('axios');
 var config = require('../../config');
-var buy = function buy(loose_change, bitcoin_access_token, bitcoin_refresh_token) {
+async function buy() {
+    let { loose_change, bitcoin_access_token, bitcoin_refresh_token } = this.state;
     let purchase = {loose_change, bitcoin_access_token, bitcoin_refresh_token};
-    axios.post(`${config.server_url}/buy`,purchase)
-    .then(handleResponse)
-    .catch(handleError)
+    console.log('--- Purchase ---\n', purchase);
+    let { data } = await axios.post(`${config.server_url}/buy`, purchase)
+    if(data.status === "created")
+        this.setState({isBuySuccessful: true});
 }
 
-function handleResponse(response) {
-    console.log(response);
-}
-
-function handleError(error) {
-    console.error(error);
-}
 module.exports = buy;

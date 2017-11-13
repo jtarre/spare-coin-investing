@@ -1,13 +1,12 @@
 const React = require('react');
-const plaid_handler = require('../helpers/plaid_handler');
+const plaid_handler = require('../plaid/plaid_handler');
 const buy = require('../coinbase/buy');
 
-const Buy = ({loose_change, bitcoin_access_token, bitcoin_refresh_token}) => {
+const Buy = ({buy, loose_change}) => {
     // todo: need to pass in loose change as a prop to the buy button
     // todo: need to define buy
-    let buyBitcoin = buy.bind(this, loose_change, bitcoin_access_token, bitcoin_refresh_token);
     return (<div>
-        <button className="btn btn-default" onClick={buyBitcoin}>Buy {loose_change} dollars of Bitcoin!</button>
+        <button className="btn btn-default" onClick={buy}>Buy {loose_change} dollars of Bitcoin!</button>
     </div>)
 }
 // todo: input onChange=""
@@ -35,10 +34,7 @@ const BuyBitcoin = ({
             get_loose_change={get_loose_change}
             onLooseChangeChange={onLooseChangeChange}
         />
-        <Buy 
-            loose_change={loose_change} 
-            bitcoin_access_token={bitcoin_access_token}
-            bitcoin_refresh_token={bitcoin_refresh_token}/>
+        <Buy buy={buy} loose_change={loose_change}/>
     </div>    
 )
 

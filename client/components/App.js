@@ -10,8 +10,9 @@ const Dashboard = require('./Dashboard');
 const Purchase = require('./Purchase');
 const Contact = require('./Contact');
 
-const plaid_handler = require('../helpers/plaid_handler');
+const plaid_handler = require('../plaid/plaid_handler');
 const get_coinbase_tokens = require('../coinbase/get_coinbase_tokens');
+const buy = require('../coinbase/buy');
 require('../index.css')
 
 // https://github.com/ReactTraining/react-router/issues/4105#issuecomment-291834881
@@ -20,7 +21,6 @@ class App extends React.Component {
     // the App component stores all the required state
     constructor(props) {
         super(props)
-        console.log('---- APPS URL ----\n', window.location.href);
         const { 
             plaid_link,get_access_token,
             get_transactions, 
@@ -29,27 +29,31 @@ class App extends React.Component {
         this.plaid_link = plaid_link.bind(this);
         this.get_loose_change = get_loose_change.bind(this); 
         this.onLooseChangeChange = this.onLooseChangeChange.bind(this);
+        this.buy = buy.bind(this);
         
         // the coinbase auth on the server sends a redirect to 
         // the home page with the access token and refresh token
-        let {coinbase_access_token, coinbase_refresh_token} = get_coinbase_tokens(window.location.href);
+        let {
+            coinbase_access_token, 
+            coinbase_refresh_token,
+            isCoinbaseActive } = get_coinbase_tokens(window.location.href);
         
         this.state = {
             // step 1: get coinbase access token
             bitcoin_access_token: coinbase_access_token,
             bitcoin_refresh_token: coinbase_refresh_token,
-            
+            isCoinbaseActive: isCoinbaseActive,
             // step 2: get bank account info
             bank_access_token: "",
             bank_account_id: "",
-            
+            isBankAccountActive: false,
             // step 3: calculate loose change
             loose_change: 0,
             
             // step 4: take coinbase info + loose change
             // to purchase bitcoin through coinbase
+            isBuySuccessful: false
         }
-        console.log('--- app state init ---\n', this.state);
     }
 
     onLooseChangeChange(e) {
@@ -72,8 +76,10 @@ class App extends React.Component {
             bank_account_id, 
             bitcoin_access_token,
             bitcoin_refresh_token,
-            loose_change } = this.state;
-        // console.log('plaidClient\n', plaidClient);
+            loose_change,
+            isCoinbaseActive,
+            isBankAccountActive,
+            isBuySuccessful } = this.state;
         return (
             <Router>
                 <div>
@@ -97,11 +103,15 @@ class App extends React.Component {
                                 bitcoin_access_token={bitcoin_access_token}
                                 bitcoin_refresh_token={bitcoin_refresh_token}
                                 loose_change={loose_change}
+                                isCoinbaseActive={isCoinbaseActive}
+                                isBankAccountActive={isBankAccountActive}
+                                isBuySuccessful={isBuySuccessful}
 
                                 // Functions
                                 plaid_link={this.plaid_link}
                                 get_loose_change={this.get_loose_change}
                                 onLooseChangeChange={this.onLooseChangeChange}
+                                buy={this.buy}
 
                             />)}/>
                         <Route path="/contact" component={Contact}/>

@@ -1,5 +1,5 @@
 const React = require('react');
-const plaid_handler = require('../helpers/plaid_handler');
+const plaid_handler = require('../plaid/plaid_handler');
 const coinbase_authorize_user = require('../coinbase/authorize_user');
 
 const Coinbase = (props) => (

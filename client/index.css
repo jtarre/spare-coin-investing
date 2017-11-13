@@ -110,6 +110,15 @@ h1, h2, p {
     margin-right: 0;
 }
 
+.isActive {
+    background-color: green;
+}
+
+.isNotActive {
+    background-color: lightgrey;
+    opacity: .2;
+}
+
 ul {
     padding: 0;
 }
