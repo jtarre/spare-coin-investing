@@ -15,7 +15,7 @@ function save_plaid_link() {
     return Plaid.create({ 
         apiVersion: 'v2',
         clientName: 'Plaid Walkthrough Demo',
-        env: 'sandbox',
+        env: 'development',
         product: ['transactions'],
         key: 'cc7072dba7fd41708a3f08a394942f',
         onSuccess: setStateBank.bind(this)
@@ -56,7 +56,7 @@ const get_access_token = () => {
     }
 }
 
-const get_transactions = () => {
+function get_transactions() {
     return axios.post(`${config.server_url}/transactions`)
     .then(response)
     .catch(error)

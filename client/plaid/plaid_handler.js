@@ -6,7 +6,7 @@ var plaid_link = function plaid_link() {
         // TODO: switch these to environment variables
         apiVersion: 'v2',
         clientName: 'Plaid Walkthrough Demo',
-        env: 'sandbox',
+        env: 'development',
         product: ['transactions'],
         key: 'cc7072dba7fd41708a3f08a394942f',
         onSuccess: onSuccess
