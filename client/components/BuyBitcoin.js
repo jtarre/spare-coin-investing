@@ -1,6 +1,5 @@
 const React = require('react');
 const plaid_handler = require('../plaid/plaid_handler');
-const buy = require('../coinbase/buy');
 
 const Buy = ({buy, loose_change}) => {
     // todo: need to pass in loose change as a prop to the buy button
@@ -27,6 +26,7 @@ const LooseChange = ({ loose_change, get_loose_change, onLooseChangeChange }) =>
 const BuyBitcoin = ({
     bank_access_token, bank_account_id, // data for bank auth
     bitcoin_access_token, bitcoin_refresh_token, // data from coinbase auth
+    buy, // buy bitcoin
     onLooseChangeChange, loose_change, get_loose_change}) => ( // calculate loose change
     <div className="sectionWrapper">
         <LooseChange
