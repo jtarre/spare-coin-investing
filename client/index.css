@@ -64,6 +64,13 @@ h1, h2, p {
     display: block;
 }
 
+.homeWrapper {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px 15px;
+    max-width: 700px;
+}
+
 .sectionWrapper {
     margin-left: auto;
     margin-right: auto;
@@ -119,10 +126,21 @@ h1, h2, p {
     opacity: .2;
 }
 
+.callToAction {
+    border-top: solid 1px darkgrey;
+    border-bottom: solid 1px darkgrey;
+    padding-bottom: 20px;
+    max-width: 800px;
+}
+
 ul {
     padding: 0;
 }
 
 li {
     list-style-type: none;
+}
+
+.investmentClause {
+    padding-top: 100px;
 }

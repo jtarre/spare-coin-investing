@@ -6,9 +6,9 @@ import { BrowserRouter as Router,
         Link,
         Switch } from 'react-router-dom';
 
-const Dashboard = require('./Dashboard');
 const Purchase = require('./Purchase');
 const Contact = require('./Contact');
+const Home = require('./Home');
 
 const plaid_handler = require('../plaid/plaid_handler');
 const get_coinbase_tokens = require('../coinbase/get_coinbase_tokens');
@@ -83,18 +83,28 @@ class App extends React.Component {
         return (
             <Router>
                 <div>
-                    <nav className="navbar">
+                    <nav className="navbar sectionWrapper">
                         <ul className="nav navbar-nav mainnav">
                             <li className="navbutton">
-                                <Link className="navLink" to="/purchase">
-                                Purchase
+                                <Link className="navLink" to="/">
+                                    Home
                                 </Link>
                             </li>
-                            <li className="navbutton"><Link className="navLink" to="/contact">Contact</Link></li>
+                            <li className="navbutton">
+                                <Link className="navLink" to="/purchase">
+                                    Purchase
+                                </Link>
+                            </li>
+                            <li className="navbutton">
+                                <Link className="navLink" to="/contact">
+                                    Contact
+                                </Link>
+                            </li>
                         </ul>
                     </nav>
                     
                     <Switch>
+                        <Route exact path="/" component={Home}/>
                         <Route path="/purchase" render={() => (
                             <Purchase 
                                 // Data
