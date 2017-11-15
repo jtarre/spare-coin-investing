@@ -133,6 +133,24 @@ h1, h2, p {
     max-width: 800px;
 }
 
+.modal {
+    background-color: rgba(0,0,0,0.5);
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modalBody {
+    background-color: white;
+    height: 400px;
+    width: 400px;
+}
+
 ul {
     padding: 0;
 }

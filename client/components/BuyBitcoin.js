@@ -1,13 +1,43 @@
 const React = require('react');
 const plaid_handler = require('../plaid/plaid_handler');
 
-const Buy = ({buy, loose_change}) => {
+class Buy extends React.Component {
     // todo: need to pass in loose change as a prop to the buy button
     // todo: need to define buy
-    return (<div>
-        <button className="btn btn-default" onClick={buy}>Buy {loose_change} dollars of Bitcoin!</button>
-    </div>)
+    constructor(props) {
+        super(props);
+        this.displayConfirm = this.displayConfirm.bind(this);
+    }
+
+    displayConfirm() {
+        console.log('display');
+    }
+
+    render() {
+        let {buy, loose_change} = this.props;
+        return (
+        <div>
+            <button className="btn btn-default" onClick={this.displayConfirm}>
+                Buy {loose_change} dollars of Bitcoin!
+            </button>
+            <Modal buy={buy} loose_change={loose_change} />
+        </div>
+        )   
+    }
+     
 }
+
+const Modal = ({buy, loose_change}) => (
+    <div className="modal">
+        <div className="modalBody">
+            <p>Are you sure you want to buy {loose_change} dollars of Bitcoin?</p>
+            <button className="btn btn-default" onClick={buy}>
+                Yes
+            </button>
+        </div>
+    </div>
+)
+
 // todo: input onChange=""
 const LooseChange = ({ loose_change, get_loose_change, onLooseChangeChange }) => (
     // todo: need to pass the loose change value from here up to the parent
